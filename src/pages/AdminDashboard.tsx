@@ -120,7 +120,7 @@ const AdminDashboard = () => {
                 {t("common.welcome")}, {adminUser?.name || 'Admin'}
               </span>
               <LanguageSelector />
-              <Button variant="outline" onClick={handleLogout} className="border-white text-white hover:bg-white hover:text-primary">
+              <Button variant="outline" onClick={handleLogout} className="border-black text-black hover:bg-white hover:text-primary">
                 {t("common.logout")}
               </Button>
             </div>
