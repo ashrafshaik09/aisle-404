@@ -142,6 +142,7 @@ export type Database = {
       }
       profiles: {
         Row: {
+          admin_password_hash: string | null
           budgetthreshold: number | null
           createdat: string | null
           employeeid: string | null
@@ -152,6 +153,7 @@ export type Database = {
           role: string | null
         }
         Insert: {
+          admin_password_hash?: string | null
           budgetthreshold?: number | null
           createdat?: string | null
           employeeid?: string | null
@@ -162,6 +164,7 @@ export type Database = {
           role?: string | null
         }
         Update: {
+          admin_password_hash?: string | null
           budgetthreshold?: number | null
           createdat?: string | null
           employeeid?: string | null

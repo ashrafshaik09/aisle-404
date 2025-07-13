@@ -21,6 +21,7 @@ import InventoryManagement from '@/components/admin/InventoryManagement';
 import QRCodeGeneration from '@/components/admin/QRCodeGeneration';
 import OfferSetup from '@/components/admin/OfferSetup';
 import AnalyticsDashboard from '@/components/admin/AnalyticsDashboard';
+import SmartAnalytics from '@/components/admin/SmartAnalytics';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from '@/components/LanguageSelector';
 
@@ -130,27 +131,26 @@ const AdminDashboard = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Dashboard Overview */}
-        <div className="mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">Dashboard Overview</h2>
-          <p className="text-gray-600">Monitor store performance and manage inventory</p>
+        <div className="mb-8 animate-fadeIn">
+          <h2 className="text-3xl font-bold text-gray-900 mb-2 animate-slideInLeft">Dashboard Overview</h2>
+          <p className="text-gray-600 animate-slideInLeft animate-stagger-1">Monitor store performance and manage inventory</p>
         </div>
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {statsConfig.map((stat, index) => (
-            <Card key={index} className="hover:shadow-lg transition-shadow duration-200" 
-                  style={{ animationDelay: `${index * 0.1}s` }}>
+            <Card key={index} className={`hover:shadow-lg transition-all duration-300 animate-bounceIn animate-stagger-${index + 1} hover:scale-105`}>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-600 mb-1">
+                    <p className="text-sm font-medium text-gray-600 mb-1 animate-fadeIn">
                       {stat.title}
                     </p>
-                    <p className="text-2xl font-bold text-gray-900">
+                    <p className="text-2xl font-bold text-gray-900 animate-pulse-slow">
                       {stat.value}
                     </p>
                   </div>
-                  <div className={`p-3 rounded-lg ${stat.bgColor}`}>
+                  <div className={`p-3 rounded-lg ${stat.bgColor} animate-pulse-slow`}>
                     <stat.icon className={`w-6 h-6 ${stat.color}`} />
                   </div>
                 </div>
@@ -160,11 +160,15 @@ const AdminDashboard = () => {
         </div>
 
         {/* Main Content Tabs */}
-        <Tabs defaultValue="analytics" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
+        <Tabs defaultValue="analytics" className="space-y-6 animate-slideInUp">
+          <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="analytics" className="flex items-center space-x-2">
               <BarChart3 className="w-4 h-4" />
               <span>{t('admin.analytics')}</span>
+            </TabsTrigger>
+            <TabsTrigger value="smart-analytics" className="flex items-center space-x-2">
+              <TrendingDown className="w-4 h-4" />
+              <span>Smart Analytics</span>
             </TabsTrigger>
             <TabsTrigger value="inventory" className="flex items-center space-x-2">
               <Package className="w-4 h-4" />
@@ -180,19 +184,23 @@ const AdminDashboard = () => {
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="analytics" className="space-y-6">
+          <TabsContent value="analytics" className="space-y-6 animate-fadeIn">
             <AnalyticsDashboard />
           </TabsContent>
 
-          <TabsContent value="inventory" className="space-y-6">
+          <TabsContent value="smart-analytics" className="space-y-6 animate-fadeIn">
+            <SmartAnalytics />
+          </TabsContent>
+
+          <TabsContent value="inventory" className="space-y-6 animate-fadeIn">
             <InventoryManagement />
           </TabsContent>
 
-          <TabsContent value="qrcodes" className="space-y-6">
+          <TabsContent value="qrcodes" className="space-y-6 animate-fadeIn">
             <QRCodeGeneration />
           </TabsContent>
 
-          <TabsContent value="offers" className="space-y-6">
+          <TabsContent value="offers" className="space-y-6 animate-fadeIn">
             <OfferSetup />
           </TabsContent>
         </Tabs>

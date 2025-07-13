@@ -1,40 +1,17 @@
 import { supabase } from '@/integrations/supabase/client';
+import { Tables, TablesInsert } from '@/integrations/supabase/types';
 
-export interface DbProduct {
-  productid: string;
-  id?: string;
-  name: string;
-  description?: string;
-  category: string;
-  price: number;
-  mrp: number;
-  discount: number;
-  stockcount: number;
-  location: string;
-  batchnumber?: string;
-  expirydate?: string;
-  isecofriendly?: boolean;
-  isonpromotion?: boolean;
-  qrcode?: string;
-  qrlink?: string;
-  qrgenerateddate?: string;
-  viewcount?: number;
-  cartaddcount?: number;
-  salesvelocity?: string;
-  created_at?: string;
-  updated_at?: string;
-  supplierid?: string;
-  restockthreshold?: number;
-}
+export type DbProduct = Tables<'products'>;
+export type DbProductInsert = TablesInsert<'products'>;
 
 // Transform database product to app product model
 export const transformDbProductToAppProduct = (dbProduct: DbProduct) => {
   return {
-    id: dbProduct.id || dbProduct.productid,
+    id: dbProduct.productid,
     productId: dbProduct.productid,
     name: dbProduct.name,
     category: dbProduct.category || 'Uncategorized',
-    description: dbProduct.description || '',
+    description: 'Product description', // Default since not in DB
     price: dbProduct.price || 0,
     mrp: dbProduct.mrp || dbProduct.price || 0,
     discount: dbProduct.discount || 0,
@@ -42,18 +19,18 @@ export const transformDbProductToAppProduct = (dbProduct: DbProduct) => {
     aisleLocation: dbProduct.location || 'A1',
     batchNumber: dbProduct.batchnumber || '',
     expiryDate: dbProduct.expirydate || '',
-    isEcoFriendly: dbProduct.isecofriendly || false,
+    isEcoFriendly: false, // Default since not in DB
     isOnPromotion: dbProduct.isonpromotion || false,
     isNearExpiry: dbProduct.expirydate 
       ? new Date(dbProduct.expirydate) <= new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) 
       : false,
     averageRating: 4.0, // Default rating until we implement ratings
     reviews: [],
-    qrCode: dbProduct.qrcode || '',
+    qrCode: '',
     qrLink: dbProduct.qrlink || '',
-    salesVelocity: (dbProduct.salesvelocity as any) || 'medium',
-    createdAt: dbProduct.created_at || new Date().toISOString(),
-    updatedAt: dbProduct.updated_at || new Date().toISOString()
+    salesVelocity: dbProduct.salesvelocity || 1,
+    createdAt: dbProduct.lastupdated || new Date().toISOString(),
+    updatedAt: dbProduct.lastupdated || new Date().toISOString()
   };
 };
 
@@ -98,11 +75,11 @@ export const fetchProductById = async (productId: string) => {
 };
 
 // Create a new product
-export const createProduct = async (product: Partial<DbProduct>) => {
+export const createProduct = async (product: DbProductInsert) => {
   try {
     const { data, error } = await supabase
       .from('products')
-      .insert([product])
+      .insert(product)
       .select();
 
     if (error) {

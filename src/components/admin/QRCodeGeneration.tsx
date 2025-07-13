@@ -16,8 +16,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import type { Product, QRCodeData } from '@/types/product';
 import { useIsMobile } from '@/hooks/use-mobile';
 
-const QRCODER_API_KEY = "tFSprcBKDHhExbl3u2namg8qQve41jAO";
-const QRCODER_API_URL = "https://www.qrcoder.co.uk/api/v4/";
+// Using QR Server API as it's free and reliable
+const QR_API_URL = "https://api.qrserver.com/v1/create-qr-code/";
 
 const WALMART_QR_COLORS = {
   background: "FFFFFF", // white
@@ -44,38 +44,25 @@ const QR_FIELD_OPTIONS = [
 
 function buildQrApiUrl({
   text,
-  type = "SVG",
-  background = WALMART_QR_COLORS.background,
-  foreground = WALMART_QR_COLORS.foreground,
-  eo = WALMART_QR_COLORS.eo,
-  ei = WALMART_QR_COLORS.ei,
   size = 256,
-  padding = 4,
-  file = false,
+  color = "0071ce",
+  bgcolor = "ffffff",
+  format = "svg"
 }: {
   text: string;
-  type?: "SVG" | "PNG";
-  background?: string;
-  foreground?: string;
-  eo?: string;
-  ei?: string;
   size?: number;
-  padding?: number;
-  file?: boolean;
+  color?: string;
+  bgcolor?: string;
+  format?: string;
 }) {
   const params = new URLSearchParams({
-    key: QRCODER_API_KEY,
-    type,
-    text: encodeURIComponent(text),
-    background,
-    foreground,
-    eo,
-    ei,
+    data: encodeURIComponent(text),
     size: String(size),
-    padding: String(padding),
-    ...(file ? { file: "true" } : {}),
+    color,
+    bgcolor,
+    format
   });
-  return `${QRCODER_API_URL}?${params.toString()}`;
+  return `${QR_API_URL}?${params.toString()}`;
 }
 
 const QRCodeGeneration = () => {
@@ -228,39 +215,22 @@ const QRCodeGeneration = () => {
   const QRCodePreview = ({ product }: { product: Product }) => {
     const qrUrl = buildQrApiUrl({
       text: getQrText(product),
-      type: qrType,
-      background: qrBg,
-      foreground: qrFg,
-      eo: qrEo,
-      ei: qrEi,
       size: qrSize,
-      padding: qrPadding,
+      color: qrFg.toLowerCase(),
+      bgcolor: qrBg.toLowerCase(),
+      format: qrType.toLowerCase()
     });
 
     return (
       <div className="flex flex-col items-center gap-4">
-        {qrType === "SVG" ? (
-          <object type="image/svg+xml" data={qrUrl} className="w-48 h-48" aria-label="QR Code" />
-        ) : (
-          <img src={qrUrl} alt="QR Code" className="w-48 h-48" />
-        )}
+        <img src={qrUrl} alt="QR Code" className="w-48 h-48" />
         <div className="text-center">
           <h4 className="font-semibold">{product.name}</h4>
           <p className="text-sm text-muted-foreground">ID: {product.productId}</p>
         </div>
         <Button
           size="sm"
-          onClick={() => window.open(buildQrApiUrl({
-            text: getQrText(product),
-            type: qrType,
-            background: qrBg,
-            foreground: qrFg,
-            eo: qrEo,
-            ei: qrEi,
-            size: qrSize,
-            padding: qrPadding,
-            file: true,
-          }), "_blank")}
+          onClick={() => window.open(qrUrl, "_blank")}
         >
           {t("Download QR")}
         </Button>
@@ -272,16 +242,13 @@ const QRCodeGeneration = () => {
   const QRCodeDisplay = ({ product }: { product: Product }) => {
     const qrUrl = buildQrApiUrl({
       text: getQrText(product),
-      type: "SVG",
-      background: qrBg,
-      foreground: qrFg,
-      eo: qrEo,
-      ei: qrEi,
       size: 64,
-      padding: 2,
+      color: qrFg.toLowerCase(),
+      bgcolor: qrBg.toLowerCase(),
+      format: "svg"
     });
     return (
-      <object type="image/svg+xml" data={qrUrl} className="w-12 h-12" aria-label="QR Code" />
+      <img src={qrUrl} alt="QR Code" className="w-12 h-12" />
     );
   };
 
