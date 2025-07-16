@@ -67,18 +67,25 @@ export type Database = {
       }
       products: {
         Row: {
+          abandonRate: number | null
           batchnumber: string | null
           cartaddcount: number | null
           category: string | null
+          closeToExpiry: boolean | null
+          cluster: number | null
+          conversionRate: number | null
           discount: number | null
           expirydate: string | null
           isonpromotion: boolean | null
           lastupdated: string | null
           location: string | null
+          managementTip: string | null
           mrp: number | null
           name: string
+          predictedSafeDiscount: number | null
           price: number
           productid: string
+          profit: number | null
           qrgenerateddate: string | null
           qrlink: string | null
           restockthreshold: number | null
@@ -86,23 +93,31 @@ export type Database = {
           salesvelocity: number | null
           scannedcount: number | null
           shelfnumber: string | null
+          smartSuggestions: string | null
           stockcount: number
           supplierid: string | null
           viewcount: number | null
         }
         Insert: {
+          abandonRate?: number | null
           batchnumber?: string | null
           cartaddcount?: number | null
           category?: string | null
+          closeToExpiry?: boolean | null
+          cluster?: number | null
+          conversionRate?: number | null
           discount?: number | null
           expirydate?: string | null
           isonpromotion?: boolean | null
           lastupdated?: string | null
           location?: string | null
+          managementTip?: string | null
           mrp?: number | null
           name: string
+          predictedSafeDiscount?: number | null
           price: number
           productid: string
+          profit?: number | null
           qrgenerateddate?: string | null
           qrlink?: string | null
           restockthreshold?: number | null
@@ -110,23 +125,31 @@ export type Database = {
           salesvelocity?: number | null
           scannedcount?: number | null
           shelfnumber?: string | null
+          smartSuggestions?: string | null
           stockcount: number
           supplierid?: string | null
           viewcount?: number | null
         }
         Update: {
+          abandonRate?: number | null
           batchnumber?: string | null
           cartaddcount?: number | null
           category?: string | null
+          closeToExpiry?: boolean | null
+          cluster?: number | null
+          conversionRate?: number | null
           discount?: number | null
           expirydate?: string | null
           isonpromotion?: boolean | null
           lastupdated?: string | null
           location?: string | null
+          managementTip?: string | null
           mrp?: number | null
           name?: string
+          predictedSafeDiscount?: number | null
           price?: number
           productid?: string
+          profit?: number | null
           qrgenerateddate?: string | null
           qrlink?: string | null
           restockthreshold?: number | null
@@ -134,6 +157,7 @@ export type Database = {
           salesvelocity?: number | null
           scannedcount?: number | null
           shelfnumber?: string | null
+          smartSuggestions?: string | null
           stockcount?: number
           supplierid?: string | null
           viewcount?: number | null

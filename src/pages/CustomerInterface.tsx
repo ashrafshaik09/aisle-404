@@ -12,11 +12,11 @@ import {
   Gift
 } from 'lucide-react';
 import { fetchAllProducts } from '@/services/productService';
-import QRScanner from '@/components/customer/QRScanner';
-import ProductSearch from '@/components/customer/ProductSearch';
+import EnhancedQRScanner from '@/components/customer/EnhancedQRScanner';
+import EnhancedProductSearch from '@/components/customer/EnhancedProductSearch';
 import VirtualCart from '@/components/customer/VirtualCart';
 import StoreMap from '@/components/customer/StoreMap';
-import ProductCard from '@/components/customer/ProductCard';
+import CompactProductCard from '@/components/customer/CompactProductCard';
 import { toast } from '@/hooks/use-toast';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from '@/components/LanguageSelector';
@@ -197,11 +197,10 @@ const CustomerInterface = () => {
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                   {featuredProducts.map(product => (
-                    <ProductCard
-                      key={product.id}
+                    <CompactProductCard
+                      key={product.productid}
                       product={product}
                       onAddToCart={addToCart}
-                      t={t}
                     />
                   ))}
                 </div>
@@ -239,15 +238,14 @@ const CustomerInterface = () => {
 
           {/* Tab Content */}
           <TabsContent value="scan" className="mt-2 space-y-4">
-            <QRScanner 
+            <EnhancedQRScanner 
               onProductScan={handleProductScan} 
               onAddToCart={addToCart}
-              t={t}
             />
           </TabsContent>
 
           <TabsContent value="search" className="mt-2 space-y-4">
-            <ProductSearch onAddToCart={addToCart} t={t} />
+            <EnhancedProductSearch onAddToCart={addToCart} />
           </TabsContent>
 
           <TabsContent value="map" className="mt-2 space-y-4">
