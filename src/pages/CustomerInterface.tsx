@@ -15,7 +15,7 @@ import { fetchAllProducts } from '@/services/productService';
 import EnhancedQRScanner from '@/components/customer/EnhancedQRScanner';
 import EnhancedProductSearch from '@/components/customer/EnhancedProductSearch';
 import VirtualCart from '@/components/customer/VirtualCart';
-import ModernStoreMap from '@/components/customer/ModernStoreMap';
+import GoogleStyleStoreMap from '@/components/customer/GoogleStyleStoreMap';
 import CompactProductCard from '@/components/customer/CompactProductCard';
 import { toast } from '@/hooks/use-toast';
 import { useTranslation } from 'react-i18next';
@@ -52,11 +52,10 @@ const CustomerInterface = () => {
     setLoading(true);
     try {
       const products = await fetchAllProducts();
-      // Select a few random products to feature
-      const randomProducts = products.sort(() => 0.5 - Math.random()).slice(0, 4);
-      setFeaturedProducts(randomProducts);
+      setFeaturedProducts(products.slice(0, 4));
     } catch (error) {
       console.error('Failed to load featured products:', error);
+      setFeaturedProducts([]);
     } finally {
       setLoading(false);
     }
@@ -198,7 +197,7 @@ const CustomerInterface = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                   {featuredProducts.map(product => (
                     <CompactProductCard
-                      key={product.productid}
+                      key={product.id}
                       product={product}
                       onAddToCart={addToCart}
                     />
@@ -249,7 +248,7 @@ const CustomerInterface = () => {
           </TabsContent>
 
           <TabsContent value="map" className="mt-2 space-y-4">
-            <ModernStoreMap />
+            <GoogleStyleStoreMap />
           </TabsContent>
 
           <TabsContent value="cart" className="mt-2 space-y-4">

@@ -167,11 +167,11 @@ const EnhancedQRScanner: React.FC<EnhancedQRScannerProps> = ({ onProductScan, on
             </div>
           </div>
 
-          {/* Demo Products */}
+          {/* Demo Products - Using real Supabase product IDs */}
           <div className="space-y-2">
-            <p className="text-sm font-medium">{t("customer.demoProducts")}</p>
+            <p className="text-sm font-medium">{t("customer.tryScanning")}</p>
             <div className="grid grid-cols-2 gap-2">
-              {demoProducts.slice(0, 4).map((productId) => (
+              {['P001', 'P002', 'P003', 'P021'].map((productId) => (
                 <Button
                   key={productId}
                   variant="outline"
@@ -230,7 +230,7 @@ const EnhancedQRScanner: React.FC<EnhancedQRScannerProps> = ({ onProductScan, on
             <div className="grid grid-cols-2 gap-3">
               {recentlyScanned.map((product) => (
                 <CompactProductCard
-                  key={product.productid}
+                  key={product.id}
                   product={product}
                   onAddToCart={onAddToCart}
                 />

@@ -42,7 +42,7 @@ const CompactProductCard: React.FC<CompactProductCardProps> = ({ product, onAddT
   const comments = Math.floor(Math.random() * 800) + 400;
 
   const handleCardClick = () => {
-    navigate(`/customer/product/${product.productid}`);
+    navigate(`/customer/product/${product.id}`);
   };
 
   const handleLikeClick = (e: React.MouseEvent) => {

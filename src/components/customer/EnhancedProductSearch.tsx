@@ -154,7 +154,7 @@ const EnhancedProductSearch: React.FC<EnhancedProductSearchProps> = ({ onAddToCa
         <div className="grid grid-cols-2 gap-3">
           {filteredProducts.map((product) => (
             <CompactProductCard
-              key={product.productid}
+              key={product.id}
               product={product}
               onAddToCart={onAddToCart}
             />
