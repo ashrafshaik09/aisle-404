@@ -9,6 +9,21 @@ import {
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
+// Product image mapping based on category
+const getProductImage = (category: string) => {
+  const imageMap: { [key: string]: string } = {
+    'Dairy': 'https://images.unsplash.com/photo-1563636619-e9143da7973b?w=200&h=200&fit=crop',
+    'Beverages': 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=200&h=200&fit=crop',
+    'Snacks': 'https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=200&h=200&fit=crop',
+    'Personal Care': 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=200&h=200&fit=crop',
+    'Household': 'https://images.unsplash.com/photo-1585421514738-01798e348b17?w=200&h=200&fit=crop',
+    'Frozen Foods': 'https://images.unsplash.com/photo-1506617564039-2c307574e9a1?w=200&h=200&fit=crop',
+    'Bakery': 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=200&h=200&fit=crop',
+    'default': 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=200&h=200&fit=crop'
+  };
+  return imageMap[category] || imageMap['default'];
+};
+
 interface CompactProductCardProps {
   product: any;
   onAddToCart?: (product: any) => void;
@@ -43,7 +58,7 @@ const CompactProductCard: React.FC<CompactProductCardProps> = ({ product, onAddT
       {/* Product Image */}
       <div className="relative aspect-square bg-muted">
         <img 
-          src={`https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=200&h=200&fit=crop`}
+          src={getProductImage(product.category)}
           alt={product.name}
           className="w-full h-full object-cover"
         />

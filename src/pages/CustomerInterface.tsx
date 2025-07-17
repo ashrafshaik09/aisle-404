@@ -15,7 +15,7 @@ import { fetchAllProducts } from '@/services/productService';
 import EnhancedQRScanner from '@/components/customer/EnhancedQRScanner';
 import EnhancedProductSearch from '@/components/customer/EnhancedProductSearch';
 import VirtualCart from '@/components/customer/VirtualCart';
-import StoreMap from '@/components/customer/StoreMap';
+import ModernStoreMap from '@/components/customer/ModernStoreMap';
 import CompactProductCard from '@/components/customer/CompactProductCard';
 import { toast } from '@/hooks/use-toast';
 import { useTranslation } from 'react-i18next';
@@ -31,7 +31,7 @@ const CustomerInterface = () => {
   const [activeTab, setActiveTab] = useState('scan');
   const [featuredProducts, setFeaturedProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   // Load featured products on mount
   useEffect(() => {
@@ -249,7 +249,7 @@ const CustomerInterface = () => {
           </TabsContent>
 
           <TabsContent value="map" className="mt-2 space-y-4">
-            <StoreMap />
+            <ModernStoreMap />
           </TabsContent>
 
           <TabsContent value="cart" className="mt-2 space-y-4">

@@ -15,7 +15,10 @@
     "welcome": "Welcome",
     "selectLanguage": "Select your language",
     "selectYourLanguage": "Please select your preferred language",
-    "viewAll": "View All"
+    "viewAll": "View All",
+    "all": "All",
+    "off": "OFF",
+    "saved": "saved"
   },
   "auth": {
     "loginTitle": "Login to QR Retail",
